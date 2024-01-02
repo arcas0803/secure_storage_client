@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:secure_storage_client/localization/secure_storage_localizations.dart';
 import 'package:secure_storage_client/src/secure_storage_failure.dart';
 
-class SecureStorageFailureUtils {
+class SecureStorageFailureUtil {
   String getFailureNameUI({
     required BuildContext context,
     required SecureStorageFailure failure,

@@ -1,39 +1,131 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Secure Storage Client
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
+This is a client for the access to the secure storage service.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
+It's base on [FlutterSecureStorage](https://pub.dev/packages/flutter_secure_storage) package.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+## Getting Started
 
-## Features
+### Installation
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+Add the following to your `pubspec.yaml` file:
 
-## Getting started
+```yaml
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+dependencies:
+  secure_storage_client: ^0.0.1
+    git:
+      url: https://github.com/arcas0803/secure_storage_client.git
+      ref: main
+
+```
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+### Import
 
 ```dart
-const like = 'sample';
+
+import 'package:secure_storage_client/secure_storage_client.dart';
+
 ```
 
-## Additional information
+### Methods
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+#### read
+
+```dart
+
+final secureStorage = SecureStorage();
+
+secureStorage.read(key: 'your_key');
+
+```
+
+#### write
+
+```dart
+
+final secureStorage = SecureStorage();
+
+secureStorage.write(key: 'your_key', value: 'your_value');
+
+```
+
+#### delete
+
+```dart
+
+final secureStorage = SecureStorage();
+
+secureStorage.delete(key: 'your_key');
+
+```
+
+#### Clean
+
+```dart
+
+final secureStorage = SecureStorage();
+
+secureStorage.clean();
+
+```
+
+### Configuration
+
+#### Logger
+
+It's possible to enable the logger to see the logs of the client.
+
+Just pass the `logger` parameter to the constructor.
+
+```dart
+
+final logger = Logger();
+
+final secureStorage = SecureStorage(logger: logger);
+
+```
+
+#### Telemetry
+
+It's possible to handle telemetry events passing to methods to the constructor.
+
+```dart
+
+final secureStorage = SecureStorage(
+  FutureOr<void> Function(Failure)? telemetryOnError,
+  FutureOr<void> Function()? telemetryOnSuccess,
+);
+
+```
+
+Telemetry on error is called when an error occurs.
+
+Telemetry on success is called when the method is executed successfully.
+
+#### Error handling
+
+The exceptions available are:
+
+- `SecureStorageReadFailure` when the read method fails.
+
+- `SecureStorageWriteFailure` when the write method fails.
+
+- `SecureStorageKeyNotFoundFailure` when the key is not found.
+
+- `SecureStorageValueNotFoundFailure` when the value is not found.
+
+- `SecureStorageIntializationFailure` when the initialization fails.
+
+There is an class called `SecureStorageFailureUtil` with a method called `getFailureNameUI` to get a user friendly message from the exception.
+
+```dart
+
+final failureName = SecureStorageFailureUtil.getFailureNameUI(
+    context: context, 
+    failure:failure);
+
+```
+
