@@ -3,7 +3,7 @@ import 'package:secure_storage_client/localization/secure_storage_localizations.
 import 'package:secure_storage_client/src/secure_storage_failure.dart';
 
 class SecureStorageFailureUtil {
-  String getFailureNameUI({
+  static String getFailureNameUI({
     required BuildContext context,
     required SecureStorageFailure failure,
   }) {
